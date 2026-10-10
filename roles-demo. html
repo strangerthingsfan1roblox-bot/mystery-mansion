@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mystery Mansion - Role Game</title>
+<style>
+body{font-family:Arial;background:#171426;color:white;text-align:center;padding:20px}
+.card{background:#292440;padding:20px;border-radius:16px;max-width:420px;margin:20px auto}
+button{padding:13px;margin:6px;border:0;border-radius:10px;background:#ffca55;font-weight:bold;font-size:16px}
+#status{min-height:65px;line-height:1.5}
+</style>
+</head>
+<body>
+<h1>🏰 Mystery Mansion</h1>
+<p>Find your role. Survive the round!</p>
+<div class="card">
+<h2 id="role">Ready to play?</h2>
+<p id="status">Start a round to receive a secret role.</p>
+<button onclick="startRound()">🎲 Start Round</button>
+<div id="actions"></div>
+</div>
+<script>
+let role="",alive=true,round=0;
+function startRound(){
+ round++;
+ alive=true;
+ let roles=["Innocent","Innocent","Sheriff","Murderer"];
+ role=roles[Math.floor(Math.random()*roles.length)];
+ document.getElementById("role").textContent="Your role: "+role;
+ document.getElementById("status").textContent="Round "+round+" has started! There are 3 other players in the mansion.";
+ let a=document.getElementById("actions");
+ a.innerHTML="";
+ if(role==="Murderer"){
+  document.getElementById("status").textContent+=" Try to catch the other players!";
+  a.innerHTML='<button onclick="act(\'murder\')">🗡️ Catch a player</button>';
+ }else if(role==="Sheriff"){
+  document.getElementById("status").textContent+=" Find the murderer!";
+  a.innerHTML='<button onclick="act(\'shoot\')">⭐ Investigate and act</button>';
+ }else{
+  document.getElementById("status").textContent+=" Stay safe and try to survive!";
+  a.innerHTML='<button onclick="act(\'hide\')">🚪 Hide safely</button>';
+ }
+}
+function act(action){
+ let s=document.getElementById("status");
+ let a=document.getElementById("actions");
+ if(!alive){s.textContent="You are out this round. Start another round to play again.";return}
+ if(action==="murder"){
+  s.textContent="You caught a player! The Murderer wins this round. 🗡️";
+ }else if(action==="shoot"){
+  let correct=Math.random()<0.33;
+  s.textContent=correct?"You found the Murderer! The Sheriff and Innocents win! ⭐":"You couldn't find the Murderer. The Murderer escaped this round!";
+ }else{
+  let safe=Math.random()<0.7;
+  s.textContent=safe?"You survived! The Innocents win this round! 🎉":"Oh no! The Murderer found you. The Murderer wins! 💀";
+ }
+ a.innerHTML='<button onclick="startRound()">🔄 Play Again</button>';
+}
+</script>
+</body>
+</html>
