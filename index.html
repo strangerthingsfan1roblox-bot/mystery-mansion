@@ -84,3 +84,25 @@ makeWorld();player={x:360,y:260,r:13};bots=[];coins=[];for(let i=0;i<5;i++)bots.
 
 <!-- The specific icon Apple uses for the iPad home screen (use a square 180x180 png) -->
 <link rel="apple-touch-icon" href="icon-180.png">
+<!-- The Apple PWA Prompt Banner -->
+<div id="pwa-apple-prompt" style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 400px; background: #ffffff; color: #333333; padding: 15px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; z-index: 9999; border: 1px solid #e0e0e0;">
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="font-size: 14px; line-height: 1.4; padding-right: 10px;">
+      To install this app on your iPad, tap the <strong>Share button</strong> 
+      <span style="font-size: 18px;">⎋</span> (at the top of Safari) and select 
+      <strong>Add to Home Screen</strong>.
+    </div>
+    <button onclick="document.getElementById('pwa-apple-prompt').style.display='none'" style="background: none; border: none; font-size: 18px; color: #999999; cursor: pointer; padding: 5px;">✕</button>
+  </div>
+</div>
+
+<script>
+  // Detect if the user is on an iPad/iPhone and NOT already using the installed PWA
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+  if (isIOS && !isStandalone) {
+    // Show the custom banner to guide the iPad user
+    document.getElementById('pwa-apple-prompt').style.display = 'block';
+  }
+</script>
