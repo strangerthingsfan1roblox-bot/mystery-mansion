@@ -73,3 +73,14 @@ makeWorld();player={x:360,y:260,r:13};bots=[];coins=[];for(let i=0;i<5;i++)bots.
     navigator.serviceWorker.register('/sw.js');
   }
 </script>
+<!-- Tells iPadOS your website is an app -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<!-- Changes the top status bar appearance (default, black, or black-translucent) -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<!-- Sets the app title on the iPad home screen -->
+<meta name="apple-mobile-web-app-title" content="MyApp">
+
+<!-- The specific icon Apple uses for the iPad home screen (use a square 180x180 png) -->
+<link rel="apple-touch-icon" href="icon-180.png">
