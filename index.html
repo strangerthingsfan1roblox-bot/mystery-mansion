@@ -119,3 +119,12 @@ makeWorld();player={x:360,y:260,r:13};bots=[];coins=[];for(let i=0;i<5;i++)bots.
     });
   }
 </script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/mystery-mansion/sw.js')
+        .then(reg => console.log('PWA Ready!', reg))
+        .catch(err => console.log('Error: ', err));
+    });
+  }
+</script>
