@@ -109,3 +109,13 @@ makeWorld();player={x:360,y:260,r:13};bots=[];coins=[];for(let i=0;i<5;i++)bots.
 <!-- Do NOT use a leading slash like "/manifest.json" -->
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      // Replace 'your-repository-name' with your actual repo name
+      navigator.serviceWorker.register('/your-repository-name/sw.js')
+        .then(reg => console.log('PWA Ready!', reg))
+        .catch(err => console.log('Error: ', err));
+    });
+  }
+</script>
