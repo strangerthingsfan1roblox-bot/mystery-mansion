@@ -48,4 +48,26 @@ self.addEventListener('fetch', (event) => {
       return response || fetch(event.request);
     })
   );
+});// Listen for the install event
+self.addEventListener('install', (event) => {
+  console.log('Service Worker: Installed');
+  // Optional: Force the waiting service worker to become active
+  self.skipWaiting();
 });
+
+// Listen for the activate event
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Activated');
+});
+
+// Listen for network fetch requests (Required by Chrome for PWA installation)
+self.addEventListener('fetch', (event) => {
+  // For a bare-minimum setup, we just let the browser fetch naturally
+  event.respondWith(fetch(event.request));
+});
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log("Service Worker Registered"));
+  }
+</script>
